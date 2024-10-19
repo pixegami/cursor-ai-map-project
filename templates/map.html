@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Map and Points of Interest</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="h-full bg-gray-100 p-6">
+    <div
+      class="max-w-4xl mx-auto bg-white rounded-lg shadow-md overflow-hidden"
+    >
+      <div class="p-6">
+        <h1 class="text-3xl font-bold mb-4 text-gray-800">
+          Map for {{ address }}
+        </h1>
+        <img
+          src="{{ map_url }}"
+          alt="Map of {{ address }}"
+          class="w-full rounded-lg shadow-md mb-6"
+        />
+
+        <h2 class="text-2xl font-semibold mb-4 text-gray-700">
+          Nearby Places of Interest
+        </h2>
+        <div class="overflow-x-auto">
+          <table class="w-full">
+            <thead>
+              <tr class="bg-gray-200">
+                <th class="px-4 py-2 text-left">Type</th>
+                <th class="px-4 py-2 text-left">Name</th>
+                <th class="px-4 py-2 text-left">Walking</th>
+                <th class="px-4 py-2 text-left">Transit</th>
+                <th class="px-4 py-2 text-left">Driving</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for place in places %}
+              <tr class="border-b border-gray-200 hover:bg-gray-50">
+                <td class="px-4 py-2">{{ place.type_name }}</td>
+                <td class="px-4 py-2">
+                  <a
+                    href="{{ place.map_url }}"
+                    target="_blank"
+                    class="text-blue-600 hover:underline"
+                  >
+                    {{ place.display_name }}
+                  </a>
+                </td>
+                <td class="px-4 py-2">{{ place.walking_time }} min</td>
+                <td class="px-4 py-2">{{ place.transit_time }} min</td>
+                <td class="px-4 py-2">{{ place.driving_time }} min</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        <p class="mt-6">
+          <a href="{{ url_for('index') }}" class="text-blue-600 hover:underline"
+            >Search another address</a
+          >
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
